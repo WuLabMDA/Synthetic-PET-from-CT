@@ -1,0 +1,8 @@
+
+# exclude everything
+runs
+checkpoints/*
+checkpoints/lr0004_L8000_SUV_max7_slide3_Oct29_noNoise/*
+# exception to the rule
+!checkpoints/lr0004_L8000_SUV_max7_slide3_Oct29_noNoise/latest_net_D.pth
+!checkpoints/lr0004_L8000_SUV_max7_slide3_Oct29_noNoise/latest_net_G.pth
