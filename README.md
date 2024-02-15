@@ -1,14 +1,16 @@
-# Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept
+# Synthetic PET from CT
 
-This is the code for the paper "Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept" (Cell Report Medicine 2024)
+This is the code for the paper:
+
+**Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept** (Cell Report Medicine - 2024)
 <div align=center><img src="Figure/Figure1.png" width = "85%"/></div>
 
 
 ## Training
 
-After having the CT and PET data arrays (512*512*7) in the "/data_7CHL/pix2pix_7Ch7/trainA and trainB":
+After having the CT and PET data arrays (512x512x7) in the "/data_7CHL/pix2pix_7Ch7/trainA and trainB":
 
-> python train.py --name 'lr0002_L8000_PET_2p5_p8_maxx10_gamma_sep17data' --dataroot '/Data/CTtoPET/pix2pix_7Ch7_Sep17' --lr 0.0002 --lambda_L1 8000 --batch_size 6 --n_epochs 40 
+> python train.py --name 'name' --dataroot 'data_7CHL/pix2pix_7Ch7' --lr 0.0002 --lambda_L1 4000 --batch_size 4 --n_epochs 100 
 
 Note: If necessary, specify the GPU to use by setting CUDA_VISIBLE_DEVICES=0, for example.
 
