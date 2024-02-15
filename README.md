@@ -38,7 +38,7 @@ LIDC-IDRI : https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1
 
 NSCLC-RT : https://www.cancerimagingarchive.net/ 
 
-## Questionnaires for thoracic radiologists in the paper
+## Questionnaires
 
 The questionnaires for tasks 1 and 2, as referenced in the "Imaging signal level validation by thoracic radiologists" section of our paper, can be accessed online via the following link:  [questionnaires](https://drive.google.com/drive/folders/13qlGhYc5jl9DrlINPmzAxxRiW8RYBFmW?usp=sharing). 
 
