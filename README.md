@@ -38,7 +38,9 @@ LIDC-IDRI : https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1
 
 NSCLC-RT : https://www.cancerimagingarchive.net/ 
 
+## questionnaires for thoracic radiologists
 
+The questionnaires for tasks 1 and 2, as referenced in the "Imaging signal level validation by thoracic radiologists" section of our paper, can be accessed online via the following link:  [questionnaires](https://drive.google.com/drive/folders/13qlGhYc5jl9DrlINPmzAxxRiW8RYBFmW?usp=sharing). 
 
 ## Citation
 
@@ -57,5 +59,6 @@ If you find CC useful in your research, please consider citing:
 
 ## Acknowledgments
 Code borrows heavily from [pix2pix](https://github.com/phillipi/pix2pix/tree/master). The generator architecture was borrowed from [ResUNetPlusPlus](https://github.com/DebeshJha/ResUNetPlusPlus).
+
 
 
