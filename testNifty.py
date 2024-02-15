@@ -70,7 +70,7 @@ class Nifty():
         count = 0
         nifty_name = path_to_nifty.split('/')[-1].split('.')[0]
         print('1.  convert CT Nifty to npy ...    ', nifty_name, im.shape)
-        breakpoint()
+
         for k in range(3, n_slide - 3, slide ):
             im_k = np.array( im[k-3:k+4,:,:] )
             new_folder = os.path.join(os.path.dirname(path_to_nifty), temp_folder_name)
@@ -156,7 +156,6 @@ if __name__ == '__main__':
 
         # create npy files from Nifty files and store them in 'temp_folder'
         try:
-            breakpoint()
             nifty_obj.create_npy_from_Nifty(nifty_path, slide=1, temp_folder_name = nifty_obj.temp_fl)
         except:
             continue
