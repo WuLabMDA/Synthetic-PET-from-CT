@@ -10,7 +10,7 @@ This is the code for following paper published in Cell Report Medicine (2024):
 <div align=center><img src="Figure/Figure1.png" width = "85%"/></div>
 
 
-## Training
+## Train
 
 After having the CT and PET data arrays (512x512x7) in the "/data_7CHL/pix2pix_7Ch7/trainA and trainB":
 
