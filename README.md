@@ -1,7 +1,7 @@
 # Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept
 
 This is the code for the paper "Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept" (Cell Report Medicine 2024)
-<div align=center><img src="Figure/Figure1.png" width = "70%"/></div>
+<div align=center><img src="Figure/Figure1.png" width = "100%"/></div>
 
 
 
