@@ -1,4 +1,14 @@
-# CTtoPET
+# Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept
+
+This is the code for the paper "Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept" (Cell Report Medicine 2024)
+#<div align=center><img src="Figures/Figure1.png" width = "30%"/></div>
+
+
+
+
+
+
+
 
 ```bash 
 docker build -t ctpet .
