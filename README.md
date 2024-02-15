@@ -1,10 +1,11 @@
 # Synthetic PET from CT
 
-This is the code for the paper:
+
+This is the code for following paper published in Cell Report Medicine - 2024:
 
 **Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept** 
 
-(Cell Report Medicine - 2024)
+
 
 <div align=center><img src="Figure/Figure1.png" width = "85%"/></div>
 
