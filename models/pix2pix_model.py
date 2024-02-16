@@ -131,20 +131,3 @@ class Pix2PixModel(BaseModel):
         self.optimizer_G.zero_grad()        # set G's gradients to zero
         self.backward_G()                   # calculate graidents for G
         self.optimizer_G.step()             # udpate G's weights
-
-
-# I changed fake_AB 
-# from 
-# 'torch.cat((self.real_A, self.fake_B), 1)' 
-# to 
-# 'torch.cat((self.real_A[:,2:5,:,:], self.fake_B), 1)'
-
-# from
-# real_AB = torch.cat((self.real_A, self.real_B), 1)
-# to
-# real_AB = torch.cat((self.real_A[:,2:5,:,:], self.real_B), 1)
-
-# from 
-# self.netD = networks.define_D(opt.input_nc + opt.output_nc, ...) 
-# to
-# self.netD = networks.define_D(2 * opt.output_nc, ...)

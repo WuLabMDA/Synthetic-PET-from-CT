@@ -57,7 +57,7 @@ class BaseOptions():
         
         #I added
         parser.add_argument('--mode', default='train', type=str, help= 'test or train')
-        parser.add_argument('--preprocess_gamma', type=int, default=0, help='gamma preprocessing for PET image')
+        parser.add_argument('--preprocess_gamma', type=int, default=1, help='gamma preprocessing for PET image')
         self.initialized = True
         return parser
 

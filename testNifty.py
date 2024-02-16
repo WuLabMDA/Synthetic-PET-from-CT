@@ -1,48 +1,10 @@
-"""General-purpose test script for image-to-image translation.
-
-Once you have trained your model with train.py, you can use this script to test the model.
-It will load a saved model from '--checkpoints_dir' and save the results to '--results_dir'.
-
-It first creates model and dataset given the option. It will hard-code some parameters.
-It then runs inference for '--num_test' images and save results to an HTML file.
-
-Example (You need to train models first or download pre-trained models from our website):
-    Test a CycleGAN model (both sides):
-        python test.py --dataroot ./datasets/maps --name maps_cyclegan --model cycle_gan
-
-    Test a CycleGAN model (one side only):
-        python test.py --dataroot datasets/horse2zebra/testA --name horse2zebra_pretrained --model test --no_dropout
-
-    The option '--model test' is used for generating CycleGAN results only for one side.
-    This option will automatically set '--dataset_mode single', which only loads the images from one set.
-    On the contrary, using '--model cycle_gan' requires loading and generating results in both directions,
-    which is sometimes unnecessary. The results will be saved at ./results/.
-    Use '--results_dir <directory_path_to_save_result>' to specify the results directory.
-
-    Test a pix2pix model:
-        python test.py --dataroot ./datasets/facades --name facades_pix2pix --model pix2pix --direction BtoA
-
-See options/base_options.py and options/test_options.py for more test options.
-See training and test tips at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/tips.md
-See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/qa.md
-"""
 import os
 from options.test_options import TestOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import save_images, save_npy
-#from util import html
 import numpy as np
 import nibabel as nib
-
-# Checking for the .nii and .nii.gz
-# for loop on them
-#   Making a temporary folder ---- make .npy files of that with slides of 1 and 3
-#   Get the result of the network on the .npy files
-#   Apply the post processing, gamma, non-linearality, *100 ?
-#   Apply the .npy files to Nifty ---- name_prediction.nii.gz   --- maybe saved on a folder above
-#   Delete the temp folder
-
 
 class Nifty():
     def __init__(self, opt):
@@ -57,7 +19,6 @@ class Nifty():
         return nifty_path_list
              
     def create_npy_from_Nifty(self, path_to_nifty, slide = 1, rotation =True, transpose=True, temp_folder_name = 'temp_folder'):
-        # if StageI,II then transpoose=True
         whole_img = nib.load(path_to_nifty)
         im = whole_img.get_fdata()
         im = im.astype(np.int32)
@@ -96,7 +57,7 @@ class Nifty():
         img = img*maxx
         return img
 
-    def npy_to_nifti(self, pred_path, nifti_file, times_100=False):
+    def npy_to_nifti(self, pred_path, nifti_file):
         file_list = np.sort([file for file in os.listdir(pred_path) if file.endswith('.npy')]) #should be (7, 512,512)
         whole_img = nib.load(nifti_file)
         PET = np.zeros( whole_img.get_fdata().shape )
@@ -106,12 +67,7 @@ class Nifty():
             #PET[:,:,i+3] =  np.flipud(      np.load(  os.path.join(pred_path,file_path)   )      )
             PET[:,:,i+3] =  np.rot90(      np.load(  os.path.join(pred_path,file_path)   ) ,  +1 )   
             PET[:,:,i+3] = np.flipud(PET[:,:,i+3]) # I just added on OCT30 with line 65 as im = np.fliplr(im)
-   
         PET = self.nonlinear_PET(PET) if self.preprocess_gamma==False else self.post_gamma_PET(PET,  maxx=7.0 )
-        if times_100:
-            PET = PET*100.0
-            PET = PET.astype(np.int32)
-
         img_nifti = nib.Nifti1Image( PET, whole_img.affine )
         out_files = ("{}_pred.nii.gz".format(os.path.split(nifti_file)[1].split('.nii')[0] )  ) 
         nifty_folder = os.path.join( os.path.dirname(pred_path), 'nifty_pred')
@@ -134,42 +90,31 @@ if __name__ == '__main__':
     opt.serial_batches = True  # disable data shuffling; comment this line if results on randomly chosen images are needed.
     opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
     opt.display_id = -1   # no visdom display; the test code saves the results to a HTML file.
-    
     model = create_model(opt)      # create a model given opt.model and other options
     model.setup(opt)               # regular setup: load and print networks; create schedulers
-    # create a website
-
-    # test with eval mode. This only affects layers like batchnorm and dropout.
-    # For [pix2pix]: we use batchnorm and dropout in the original pix2pix. You can experiment it with and without eval() mode.
     if opt.eval:
         model.eval()
-
     nifty_obj = Nifty(opt)
     niftys_path_list = nifty_obj.path_to_nifty_files(opt.dataroot)
     print('############################################################################################')
     for nifty_path in niftys_path_list:
         only_nifty_name = os.path.basename(nifty_path).split('.')[0]
-
-        # delete is there some remaining npy files in case
+        # delete if there is some remaining npy files in case.
         nifty_obj.remove_npy(   os.path.join(os.path.split(nifty_path)[0], nifty_obj.temp_fl)) 
         nifty_obj.remove_npy(   os.path.join(opt.results_dir, opt.name, opt.npy_save_name  ) )
-
         # create npy files from Nifty files and store them in 'temp_folder'
         try:
             nifty_obj.create_npy_from_Nifty(nifty_path, slide=1, temp_folder_name = nifty_obj.temp_fl)
         except:
             continue
-
         dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options (opt.dataset_mode='cttopet')
         for i, data in enumerate(dataset): ## data: dict_keys(['A', 'B', 'A_paths', 'B_paths'])
             if i >= opt.num_test:  # only apply our model to opt.num_test images.
                 break
-            
             model.set_input(data)  # unpack data from data loader
             model.test()           # run inference
             visuals = model.get_current_visuals()  # get image results     ##dict_keys(['real_A', 'fake_B', 'real_B'])
             img_path = model.get_image_paths()     # get image paths
-
             #save_npy(visuals,img_path)
             npy_path_dir = os.path.join(opt.results_dir, opt.name, opt.npy_save_name)
             os.makedirs(npy_path_dir, exist_ok=True)
@@ -186,12 +131,6 @@ if __name__ == '__main__':
         nifty_obj.remove_npy(   os.path.join(opt.results_dir, opt.name, opt.npy_save_name  ))
         print('5.  Deleting npy_result is done!')
         print('############################################################################################')
-
-#Writing the slides:
-#function change:
-#save_npy 
-
-#astype(int16)
 
 
 
