@@ -59,9 +59,9 @@ If you find CC useful in your research, please consider citing:
 ```
 
 ## Acknowledgments
-Code borrows heavily from [pix2pix](https://github.com/phillipi/pix2pix/tree/master). 
+Code borrowed heavily from [pix2pix](https://github.com/phillipi/pix2pix/tree/master). 
 
-The Generator architecture was borrowed from [ResUNetPlusPlus](https://github.com/DebeshJha/ResUNetPlusPlus).
+The Generator architecture borrowed from [ResUNetPlusPlus](https://github.com/DebeshJha/ResUNetPlusPlus).
 
 
 
