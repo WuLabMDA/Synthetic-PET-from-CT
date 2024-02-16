@@ -7,7 +7,7 @@ This is the code for following paper published in Cell Report Medicine (2024):
 
 
 
-<div align=left><img src="Figure/Figure1.png" width = "85%"/></div>
+<div align=left><img src="Figure/Figure1.png" width = "80%"/></div>
 
 
 ## Train
