@@ -26,15 +26,16 @@ We uploaded the trained model which achieves the performance reported in the pap
 After running the above code, a temp_folder is created in the /Folder_with_lung_CT_Nifti_files where the processed nifti file is divided to npy array of 512x512x7, and then the inference is called on them. The temporarily synthetic PET npy array are created in /Result_folder followed by its nifti_file.
 
 
-## Datasets Links
+## Links
+The links to the datasets are:
 
 MDA-TRAIN/TEST/SCREENING : N/A 
 
-TCIA-STANFORD : https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics 
+[TCIA-STANFORD](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics )
 
-LIDC-IDRI : https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1966254 
+[LIDC-IDRI](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1966254 )
 
-NSCLC-RT : https://www.cancerimagingarchive.net/ 
+[NSCLC-RT](https://www.cancerimagingarchive.net/ )
 
 ## Questionnaires
 
