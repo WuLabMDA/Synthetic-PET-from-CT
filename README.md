@@ -19,9 +19,11 @@ After having the CT and PET data arrays (512x512x7) in the "/data_7CHL/pix2pix_7
 Note: If necessary, specify the GPU to use by setting CUDA_VISIBLE_DEVICES=0, for example.
 
 ## Test
-We uploaded the trained model which achieves the performance reported in the paper to the 'checkpoints' folder for your reference. To test the trained model on a folder with lung CT Nifti files, run:
+We uploaded the trained model which achieves the performance reported in the paper to the 'checkpoints' folder for your reference. 
 
-> python testNifty.py --dataroot '/Folder_with_lung_CT_Nifti_files' --name 'checkpoints' --model 'pix2pix' --gpu_ids '0'  --mode 'test' --preprocess_gamma 1 --results_dir '/Result_folder'
+To evaluate the trained model on one or several lung CT NIfTI files, execute the following command:
+
+> python testNifty.py --dataroot '/Folder_with_lung_CT_Nifti_files_inside' --name 'checkpoints' --model 'pix2pix' --gpu_ids '0'  --mode 'test' --preprocess_gamma 1 --results_dir '/Result_folder'
 
 After running the above code, a temp_folder is created in the /Folder_with_lung_CT_Nifti_files where the processed nifti file is divided to npy array of 512x512x7, and then the inference is called on them. The temporarily synthetic PET npy array are created in /Result_folder followed by its nifti_file.
 
