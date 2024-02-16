@@ -29,7 +29,7 @@ After running the above code, a temp_folder is created in the /Folder_with_lung_
 ## Links
 The links to the datasets are:
 
-MDA-TRAIN/TEST/SCREENING : N/A 
+MDA-TRAIN/TEST/SCREENING - N/A 
 
 [TCIA-STANFORD](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics )
 
