@@ -3,6 +3,7 @@
 runs
 Result_folder
 nifti_files
+test1
 #checkpoints/*
 checkpoints/lr0004_L8000_SUV_max7_slide3_Oct29_noNoise/*
 # exception to the rule

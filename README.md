@@ -22,9 +22,7 @@ Note: If necessary, specify the GPU to use by setting CUDA_VISIBLE_DEVICES=0, fo
 
 To test the trained model on a folder with lung CT Nifti files, run:
 
-> CUDA_VISIBLE_DEVICES=0 python testNifty.py --dataroot '/Folder_with_lung_CT_Nifti_files' --name 'checkpoints' --model 'pix2pix' --gpu_ids '0'  --mode 'test' --preprocess_gamma 1 --results_dir '/Result_folder'
-
-Note: If necessary, specify the GPU to use by setting CUDA_VISIBLE_DEVICES=0, for example.
+> python testNifty.py --dataroot '/Folder_with_lung_CT_Nifti_files' --name 'checkpoints' --model 'pix2pix' --gpu_ids '0'  --mode 'test' --preprocess_gamma 1 --results_dir '/Result_folder'
 
 We uploaded the trained model which achieves the performance reported in the paper to the 'checkpoints' folder for your reference.
 

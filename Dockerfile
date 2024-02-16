@@ -49,5 +49,5 @@ WORKDIR /home/${USER_NAME}
 
 #docker build -t ctpet .
 #docker run -it --rm --gpus all --shm-size=192G --user $(id -u):$(id -g) --cpuset-cpus=20-29 \
-#-v /rsrch1/ip/msalehjahromi/codes/CTtoPET/pix2pixBackup/pix2pix:/Code \
+#-v /*:/Code \
 #--name CTPET ctpet:latest
