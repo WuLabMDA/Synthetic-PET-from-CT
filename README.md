@@ -1,68 +1,136 @@
-# Synthetic PET from CT
+# 🏥 Synthetic PET from CT
+
+[![Cell Reports Medicine](https://img.shields.io/badge/Published%20in-Cell%20Reports%20Medicine-blue)](https://www.cell.com/cell-reports-medicine)
+[![Python](https://img.shields.io/badge/Python-3.7+-green.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-1.0+-red.svg)](https://pytorch.org/)
+
+> **Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept**  
+> *Morteza Salehjahromi, et al.* - Cell Reports Medicine (2024)
+
+This repository contains the implementation for generating synthetic Positron Emission Tomography (PET) scans from Computed Tomography (CT) images using deep learning techniques. The method demonstrates significant improvements in lung cancer diagnosis and prognosis.
 
 
-This is the code for following paper published in Cell Report Medicine (2024):
+## 📊 Overview
 
-**Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept** 
+<div align="center">
+  <img src="Figure/Figure1.png" width="80%" alt="Method Overview"/>
+</div>
 
-- Morteza Salehjahromi, et al - [mortezasj11]
+## 🎯 Results
 
+<div align="center">
+  <img src="Figure/CTPET.png" width="80%" alt="Synthetic PET Results"/>
+  <p><em>Comparison of CT scans, ground truth PET, and synthetic PET across MDA-TEST and TCIA-STANFORD datasets</em></p>
+</div>
 
-<div align=left><img src="Figure/Figure1.png" width = "80%"/></div>
+## 🚀 Quick Start
 
+### Prerequisites
 
-## Train
+- Python 3.7+
+- PyTorch 1.0+
+- CUDA (recommended for GPU acceleration)
 
-After having the CT and PET data arrays (512x512x7) in the "/data_7CHL/pix2pix_7Ch7/trainA and trainB":
+### Installation
 
-> python train.py --name 'name' --dataroot 'data_7CHL/pix2pix_7Ch7' --lr 0.0002 --lambda_L1 4000 --batch_size 4 --n_epochs 100 
+```bash
+# Clone the repository
+git clone <repository-url>
+cd Synthetic-PET-from-CT
 
-Note: If necessary, specify the GPU to use by setting CUDA_VISIBLE_DEVICES=0, for example.
+# Install dependencies (if using conda)
+conda env create -f environment.yml
+conda activate synthetic-pet
 
-## Test
-We uploaded the trained model which achieves the performance reported in the paper to the 'checkpoints' folder for your reference. 
-
-To evaluate the trained model on one or several lung CT NIfTI files, execute the following command:
-
-> python testNifty.py --dataroot '/Folder_with_lung_CT_Nifti_files_inside' --name 'checkpoints' --mode 'test' --preprocess_gamma 1 --results_dir '/Result_folder'
-
-After running the above code, a temp_folder is created in the /Folder_with_lung_CT_Nifti_files where the processed nifti file is divided to npy array of 512x512x7, and then the inference is called on them. The temporarily synthetic PET npy array are created in /Result_folder followed by its nifti_file.
-
-
-## Links
-The links to the datasets are:
-
-MDA-TRAIN/TEST/SCREENING - N/A 
-
-[TCIA-STANFORD](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics )
-
-[LIDC-IDRI](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1966254 )
-
-[NSCLC-RT](https://www.cancerimagingarchive.net/ )
-
-## Questionnaires
-
-The questionnaires for tasks 1 and 2, as referenced in the "Imaging signal level validation by thoracic radiologists" section of our paper, can be accessed online via the following link:  [questionnaires](https://drive.google.com/drive/folders/13qlGhYc5jl9DrlINPmzAxxRiW8RYBFmW?usp=sharing). 
-
-## Citation
-
-If you find CC useful in your research, please consider citing:
+# Or install with pip
+pip install -r requirements.txt
 ```
-@inproceedings{****,
+
+## 🏋️ Training
+
+Prepare your data by placing CT and PET data arrays (512×512×7) in the following structure:
+```
+data_7CHL/
+└── pix2pix_7Ch7/
+    ├── trainA/  # CT scans
+    └── trainB/  # PET scans
+```
+
+**Training Command:**
+```bash
+python train.py \
+    --name 'experiment_name' \
+    --dataroot 'data_7CHL/pix2pix_7Ch7' \
+    --lr 0.0002 \
+    --lambda_L1 4000 \
+    --batch_size 4 \
+    --n_epochs 100
+```
+
+> 💡 **Tip:** Specify GPU usage with `CUDA_VISIBLE_DEVICES=0` if needed
+
+## 🔬 Testing & Inference
+
+We provide a pre-trained model in the `checkpoints/` folder that achieves the performance reported in our paper.
+
+### Testing on NIfTI Files
+
+**Command:**
+```bash
+python testNifty.py \
+    --dataroot '/path/to/lung_CT_Nifti_files' \
+    --name 'checkpoints' \
+    --mode 'test' \
+    --preprocess_gamma 1 \
+    --results_dir '/path/to/results'
+```
+
+**Process:**
+1. A temporary folder is created in your input directory
+2. NIfTI files are processed and divided into 512×512×7 numpy arrays
+3. Inference is performed on each array
+4. Synthetic PET arrays are generated and saved as NIfTI files in the results directory
+
+
+## 📁 Datasets
+
+| Dataset | Status | Link |
+|---------|--------|------|
+| **MDA-TRAIN/TEST/SCREENING** | Not Available | N/A |
+| **TCIA-STANFORD** | Available | [NSCLC Radiogenomics](https://wiki.cancerimagingarchive.net/display/Public/NSCLC+Radiogenomics) |
+| **LIDC-IDRI** | Available | [LIDC-IDRI](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=1966254) |
+| **NSCLC-RT** | Available | [NSCLC-RT](https://www.cancerimagingarchive.net/) |
+
+## 📋 Validation Questionnaires
+
+For the "Imaging signal level validation by thoracic radiologists" section of our paper, we provide questionnaires for tasks 1 and 2:
+
+🔗 **[Access Questionnaires](https://drive.google.com/drive/folders/13qlGhYc5jl9DrlINPmzAxxRiW8RYBFmW?usp=sharing)** 
+
+## 📚 Citation
+
+If you find this work useful in your research, please consider citing:
+
+```bibtex
+@article{salehjahromi2024synthetic,
   title={Synthetic PET from CT improves diagnosis and prognosis for lung cancer: proof of concept},
-  author={****},
-  booktitle={****},
-  volume={****},
-  number={****},
-  pages={****},
-  year={****}
+  author={Salehjahromi, Morteza and others},
+  journal={Cell Reports Medicine},
+  year={2024}
 }
 ```
 
-## Acknowledgments
-Code borrowed heavily from [pix2pix](https://github.com/phillipi/pix2pix/tree/master). 
+## 🙏 Acknowledgments
 
-The Generator architecture borrowed from [ResUNetPlusPlus](https://github.com/DebeshJha/ResUNetPlusPlus).
+- Code heavily based on [pix2pix](https://github.com/phillipi/pix2pix/tree/master)
+- Generator architecture adapted from [ResUNetPlusPlus](https://github.com/DebeshJha/ResUNetPlusPlus)
+- Medical imaging community for datasets and validation
+
+---
+
+<div align="center">
+  <p><strong>🏥 Advancing Medical AI for Better Patient Outcomes</strong></p>
+</div>
 
 
 
